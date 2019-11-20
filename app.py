@@ -31,7 +31,7 @@ def main():
     # week = get_week_from_date()
     week = "12"
     if week is not None:
-        client = pymongo.MongoClient("mongodb://pranav_user:@cluster0-shard-00-00-rxhhi.mongodb.net:27017,cluster0-shard-00-01-rxhhi.mongodb.net:27017,cluster0-shard-00-02-rxhhi.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority")
+        client = pymongo.MongoClient("mongodb://pranav_user:bootyclapper@cluster0-shard-00-00-rxhhi.mongodb.net:27017,cluster0-shard-00-01-rxhhi.mongodb.net:27017,cluster0-shard-00-02-rxhhi.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority")
         db = client['Football_Stats']
         collection = db['Jerry_Rice_Stats']
         stats = collection.find( {"week" : week })[0]['stats']
