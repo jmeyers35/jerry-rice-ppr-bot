@@ -6,12 +6,12 @@ import tweepy
 import random
 
 def post_tweet(tweet):
-    with open('secrets.json', 'r') as config_file:
-        configs = json.load(config_file)
-    consumer_key = configs['twitter_api_key']
-    consumer_key_secret = configs['twitter_api_secret_key']
-    consumer_access_token = configs['twitter_access_token']
-    consumer_access_token_secret = configs['twitter_access_token_secret']
+    with open('secrets.json', 'r') as secrets_file:
+        secrets = json.load(secrets_file)
+    consumer_key = secrets['twitter_api_key']
+    consumer_key_secret = secrets['twitter_api_secret_key']
+    consumer_access_token = secrets['twitter_access_token']
+    consumer_access_token_secret = secrets['twitter_access_token_secret']
     auth = tweepy.OAuthHandler(consumer_key, consumer_key_secret)
     auth.set_access_token(consumer_access_token, consumer_access_token_secret)
     api = tweepy.API(auth, retry_count=5, retry_delay=60, wait_on_rate_limit=True)
@@ -52,11 +52,10 @@ def main():
         td = stat_line['rec_td']
         ppr_points = stat_line['ppr_points']
         touchdown_string = "touchdowns" if int(td) > 1 else "touchdown"
-        with open('config.json', 'r') as tweet_tempelate:
-            temp = json.load(tweet_tempelate)
-        tweet_format = temp['tweet_format']
+        with open('config.json', 'r') as config_file:
+            configs = json.load(config_file)
+        tweet_format = configs['tweet_format']
         tweet_format = tweet_format.format(week, year, ppr_points, rec, yards, td, touchdown_string, opp)
-        print(tweet_format)
         post_tweet(tweet_format)
 
 if __name__ == '__main__':
