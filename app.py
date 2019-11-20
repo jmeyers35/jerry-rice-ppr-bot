@@ -5,8 +5,6 @@ import requests
 import tweepy
 import random
 
-BASE_URL = "https://api.twitter.com/1.1/"
-
 def post_tweet(tweet):
     with open('secrets.json', 'r') as config_file:
         configs = json.load(config_file)
@@ -28,10 +26,11 @@ def get_week_from_date():
     return None
 
 def main():
-    # week = get_week_from_date()
-    week = "12"
+    with open('secrets.json', 'r') as secrets_file:
+        secrets = json.load(secrets_file)
+    week = get_week_from_date()
     if week is not None:
-        client = pymongo.MongoClient("mongodb://pranav_user:bootyclapper@cluster0-shard-00-00-rxhhi.mongodb.net:27017,cluster0-shard-00-01-rxhhi.mongodb.net:27017,cluster0-shard-00-02-rxhhi.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority")
+        client = pymongo.MongoClient(secrets['mongo_connection_string'])
         db = client['Football_Stats']
         collection = db['Jerry_Rice_Stats']
         stats = collection.find( {"week" : week })[0]['stats']
@@ -46,7 +45,6 @@ def main():
             else:
                 i += 1
                 index = random.randint(0, len(stats) - 1)
-        print(stat_line)
         date = stat_line['date']
         opp = stat_line['opponent']
         yards = stat_line['yards']
@@ -54,7 +52,6 @@ def main():
         yards = stat_line['rec_yds']
         td = stat_line['rec_td']
         ppr_points = stat_line['ppr_points']
-
 
 if __name__ == '__main__':
     main()
