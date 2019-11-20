@@ -37,16 +37,24 @@ def main():
         stats = collection.find( {"week" : week })[0]['stats']
         i = 0
         index = random.randint(0, len(stats) - 1)
-        week = None
+        stat_line = None
         while i < len(stats):
             week_stat = stats[index]
             if float(week_stat['ppr_points']) > 10.0:
                 i = len(stats)
-                week = week_stat
+                stat_line = week_stat
             else:
                 i += 1
                 index = random.randint(0, len(stats) - 1)
-        print(week)
+        print(stat_line)
+        date = stat_line['date']
+        opp = stat_line['opponent']
+        yards = stat_line['yards']
+        rec = stat_line['rec']
+        yards = stat_line['rec_yds']
+        td = stat_line['rec_td']
+        ppr_points = stat_line['ppr_points']
+
 
 if __name__ == '__main__':
     main()
