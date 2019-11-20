@@ -45,13 +45,19 @@ def main():
             else:
                 i += 1
                 index = random.randint(0, len(stats) - 1)
-        date = stat_line['date']
+        year = stat_line['date'].split("-")[0]
         opp = stat_line['opponent']
-        yards = stat_line['yards']
         rec = stat_line['rec']
         yards = stat_line['rec_yds']
         td = stat_line['rec_td']
         ppr_points = stat_line['ppr_points']
+        touchdown_string = "touchdowns" if int(td) > 1 else "touchdown"
+        with open('config.json', 'r') as tweet_tempelate:
+            temp = json.load(tweet_tempelate)
+        tweet_format = temp['tweet_format']
+        tweet_format = tweet_format.format(week, year, ppr_points, rec, yards, td, touchdown_string, opp)
+        print(tweet_format)
+        post_tweet(tweet_format)
 
 if __name__ == '__main__':
     main()
