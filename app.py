@@ -59,6 +59,7 @@ def main():
         tweet_format = temp['tweet_format']
         tweet_format = tweet_format.format(week, date, ppr_points, rec, yards, td, touchdown_string, opp)
         print(tweet_format)
+        post_tweet(tweet_format)
 
 
 if __name__ == '__main__':
