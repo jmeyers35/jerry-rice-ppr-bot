@@ -47,7 +47,7 @@ def main():
                 i += 1
                 index = random.randint(0, len(stats) - 1)
         print(stat_line)
-        date = stat_line['date']
+        year = stat_line['date'].split("-")[0]
         opp = stat_line['opponent']
         rec = stat_line['rec']
         yards = stat_line['rec_yds']
@@ -57,7 +57,7 @@ def main():
         with open('config.json', 'r') as tweet_tempelate:
             temp = json.load(tweet_tempelate)
         tweet_format = temp['tweet_format']
-        tweet_format = tweet_format.format(week, date, ppr_points, rec, yards, td, touchdown_string, opp)
+        tweet_format = tweet_format.format(week, year, ppr_points, rec, yards, td, touchdown_string, opp)
         print(tweet_format)
         post_tweet(tweet_format)
 
