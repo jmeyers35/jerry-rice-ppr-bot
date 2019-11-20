@@ -1,12 +1,13 @@
 import datetime
 import json
+import pymongo
 import requests
 import tweepy
 
 BASE_URL = "https://api.twitter.com/1.1/"
 
 def post_tweet(tweet):
-    with open('config.json', 'r') as config_file:
+    with open('secrets.json', 'r') as config_file:
         configs = json.load(config_file)
     consumer_key = configs['twitter_api_key']
     consumer_key_secret = configs['twitter_api_secret_key']
@@ -26,7 +27,9 @@ def get_week_from_date():
     return None
 
 def main():
-    pass
+    week = get_week_from_date()
+    if week is not None:
+        # Do stuff, send tweet
 
 if __name__ == '__main__':
     main()
